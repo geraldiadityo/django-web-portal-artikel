@@ -10,7 +10,7 @@ class Artikel(models.Model):
         ('GOSIP','Gosip'),
         ('TRAVELING','Traveling'),
     )
-    kategori = models.CharField(null=True, blank=True, choices=KATEGORI_TYPE)
+    kategori = models.CharField(null=True, blank=True, choices=KATEGORI_TYPE,max_length=200)
     penulis = models.ForeignKey(Penulis,null=True,on_delete=models.SET_NULL)
     slug = models.SlugField(blank=True, editable=False)
     published = models.DateTimeField(auto_now_add=True, null=True)
