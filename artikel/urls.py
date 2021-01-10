@@ -1,8 +1,8 @@
-from django.urls import path
+from django.urls import path,re_path
 
 from .views import *
 app_name = 'artikel'
 
 urlpatterns = [
-    path('',ArtikelListView.as_view(),name='home'),
+    re_path(r'^artikel/(?P<page>\d+)/$',ArtikelListView.as_view(),name='home'),
 ]
