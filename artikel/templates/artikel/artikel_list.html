@@ -55,10 +55,10 @@
             {% endif %}
             
             {% for dataartikel in artikel %}
-                <h3><a class="text-dark" href="#">{{dataartikel.judul}}</a></h3>
+                <h3><a class="text-dark" href="{% url 'artikel:detail' dataartikel.slug %}">{{dataartikel.judul}}</a></h3>
                 <p>kategori : {{dataartikel.kategori}} | {{dataartikel.published|date}}</p>
                 <p>Penulis : {{dataartikel.penulis}}</p>
-                <p>{{dataartikel.isi|truncatewords:20}} <a href="#">Selengkapnya</a></p>
+                <p>{{dataartikel.isi|truncatewords:20}} <a href="{% url 'artikel:detail' dataartikel.slug %}">Selengkapnya</a></p>
                 <hr>
             {% empty %}
                 <h2>Nothing Artikel in Here</h2>
@@ -69,12 +69,12 @@
             <h3>Kategori Lainnya</h3>
             <ul class="list-group list-group-flush">
                 <li class="list-group-item">
-                    <a href="#">Semua Kategori</a>
+                    <a href="{% url 'artikel:home' 1 %}">Semua Kategori</a>
                 </li>
                 
                 {% for kategori in kategorilist %}
                     <li class="list-group-item">
-                        <a href="#">{{kategori}}</a>
+                        <a href="{% url 'artikel:kategori-list' kategori 1 %}">{{kategori}}</a>
                     </li>
                 {% endfor %}
                     

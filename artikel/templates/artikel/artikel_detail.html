@@ -23,7 +23,7 @@
                     
                     {% if forloop.counter is not 3 %}
                         <li class="list-group-item">
-                            <h5><a href="#">{{dataartikel.judul}}</a></h5>
+                            <h5><a href="{% url 'artikel:detail' dataartikel.slug %}">{{dataartikel.judul}}</a></h5>
                             <p>{{dataartikel.published|date}}</p>
                         </li>
                     {% endif %}

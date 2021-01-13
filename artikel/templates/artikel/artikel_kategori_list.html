@@ -1,0 +1,82 @@
+{% extends 'base.html' %}
+
+
+{% block title_app %}
+    {{page_title}}
+{% endblock title_app %}
+
+
+{% block content %}
+    <h1>{{page_title}}</h1>
+    <div class="row">
+        <div class="col-md-8">
+            
+            {% if is_paginated %}
+                <nav aria-label="">
+                    <ul class="pagination">
+                        
+                        {% if page_obj.has_previous %}
+                            <li class="page-item">
+                                <a class="page-link" href="{% url 'artikel:kategori-list' katgeori page_obj.previous_page_number %}">Previous</a>
+                            </li>
+                        {% else %}
+                            <li class="page-item disabled">
+                                <a class="page-link" href="#" tabindex="-1">Previous</a>
+                            </li>
+                        {% endif %}
+                        
+                        
+                        {% for page in paginator.page_range %}
+                            
+                            {% if page is page_obj.number %}
+                                <li class="page-item active">
+                                    <span class="page-link">{{page}} <span class="sr-only">(current)</span></span>
+                                </li>
+                            {% else %}
+                                <li class="page-item">
+                                    <a class="page-link" href="{% url 'artikel:kategori-list' kategori page %}">{{page}}</a>
+                                </li>
+                            {% endif %}
+                                
+                        {% endfor %}
+                        
+                        {% if page_obj.has_next %}
+                            <li class="page-item">
+                                <a class="page-link" href="{% url 'artikel:kategori-list' kategori page_obj.next_page_number %}">Next</a>
+                            </li>
+                        {% else %}
+                            <li class="page-item disabled">
+                                <a class="page-link" href="#" tabindex="-1">Next</a>
+                            </li>
+                        {% endif %}
+                            
+                    </ul>
+                </nav>
+            {% endif %}
+            
+            {% for dataartikel in artikel %}
+                <h3><a class="text-dark" href="{% url 'artikel:detail' dataartikel.slug %}">{{dataartikel.judul}}</a></h3>
+                <p>Kategori : {{dataartikel.kategori}} | {{dataartikel.published|date}}</p>
+                <p>penulis : {{dataartikel.penulis}}</p>
+                <p>{{dataartikel.isi|truncatewords:20}} <a href="{% url 'artikel:detail' dataartikel.slug %}">Selengkapnya</a></p>
+            {% endfor %}
+                
+        </div>
+        <div class="col-sm">
+            <h3>Kategori Lainnya</h3>
+            <ul class="list-group list-group-flush">
+                <li class="list-group-item">
+                    <a href="{% url 'artikel:home' 1 %}">Semua Kategori</a>
+                </li>
+                
+                {% for datakategori in kategorilist %}
+                    <li class="list-group-item">
+                        <a href="{% url 'artikel:kategori-list' datakategori 1 %}">{{datakategori}}</a>
+                    </li>
+                {% endfor %}
+                    
+            </ul>
+        </div>
+    </div>
+{% endblock content %}
+    
