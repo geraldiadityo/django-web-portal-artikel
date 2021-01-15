@@ -1,0 +1,27 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>
+        
+        {% block title_app %}
+            
+        {% endblock title_app %}
+            
+    </title>
+    <link rel="stylesheet" href="{% static 'vendor/bs/css/bootstrap.css' %}">
+</head>
+<body>
+    {% include 'navbarpenulis.html' %}
+    <div class="container">
+        
+        {% block content %}
+            
+        {% endblock content %}
+            
+    </div>
+    {% include 'scripts.html' %}
+</body>
+</html>

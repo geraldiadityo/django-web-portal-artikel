@@ -14,28 +14,29 @@
                 <h3>Register Here</h3>
                 <form action="" method="POST">
                     {% csrf_token %}
-                    <div class="form-group">
-                        <label for="username">Username</label>
-                        {{form.username}}
-                    </div>
-                    <div class="form-group">
-                        <label for="email">Email</label>
-                        {{form.email}}
-                    </div>
-                    <div class="form-group">
-                        <label for="password1">Password</label>
-                        {{form.password1}}
-                    </div>
-                    <div class="form-group">
-                        <label for="password2">Confirm Password</label>
-                        {{form.password2}}
-                    </div>
-                    <input type="submit" class="btn btn-primary" value="Register Account">
+                    
+                    {% for dataform in form %}
+                        {{dataform.label}}
+                        {{dataform}}
+                    {% endfor %}
+                        
+                    <button type="submit" class="btn btn-primary">Register</button>
                     <br>
                     <p>Already have account login <a href="{% url 'penulis:login' %}">Here</a></p>
                 </form>
             </div>
         </div>
     </div>
+    <script>
+        var form_fields = document.getElementsByTagName('input')
+        form_fields[1].placeholder='Username';
+        form_fields[2].placeholder='ex: ggg@eee.aaa'
+        form_fields[3].placeholder='Password';
+        form_fields[4].placeholder='Confirm Password';
+
+        for (var field in form_fields){
+            form_fields[field].className += 'form-control';
+        }
+    </script>
 {% endblock content %}
     

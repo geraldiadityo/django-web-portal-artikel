@@ -1,3 +1,10 @@
+<style>
+    .hello-msg{
+        font-size: 18px;
+        color: #fff;
+        margin-right: 20px;
+    }
+</style>
 <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
     <a class="navbar-brand" href="#">Dark Artikel</a>
     <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
@@ -10,12 +17,14 @@
             <a class="nav-link" href="#">Home</a>
           </li>
           <li class="nav-item">
-            <a class="nav-link" href="{% url 'artikel:home' 1 %}">Artikel</a>
+            <a class="nav-link" href="#">Artikel</a>
           </li>
           
         <li class="nav-item">
-          <a class="nav-link" href="{% url 'penulis:login' %}">Penulis Corners</a>
+          <a class="nav-link" href="#">Manage Artikel</a>
         </li>
       </ul>
     </div>
+    <span class="hello-msg">Hello : {{request.user}}</span>
+    <span><a href="{% url 'penulis:logout' %}" class="hello-msg">Logout</a></span>
   </nav>

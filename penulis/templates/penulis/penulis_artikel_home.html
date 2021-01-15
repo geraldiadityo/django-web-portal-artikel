@@ -1,0 +1,38 @@
+{% extends 'basepenulis.html' %}
+
+
+{% block title_app %}
+    {{page_title}}
+{% endblock title_app %}
+
+
+{% block content %}
+    <h1>{{page_title}}</h1>
+    <div class="row">
+        <div class="col-md-8">
+            
+            {% for dataartikel in artikel %}
+                <h3><a class="text-dark" href="#">{{dataartikel.judul}}</a></h3>
+                <p>Kategori : {{dataartikel.kategori}} | {{dataartikel.published|date}}</p>
+                <p>{{dataartikel.isi|truncatewords:20}} <a href="#">Selengkapnya</a></p>
+            {% endfor %}
+                
+        </div>
+        <div class="col-sm">
+            <h3>Kategori Lainnya</h3>
+            <ul class="list-group list-group-flush">
+                <li class="list-group-item">
+                    <a href="#">Semua Kategori</a>
+                </li>
+                
+                {% for datakategori in kategorilist %}
+                    <li class="list-group-item">
+                        <a href="#">{{datakategori}}</a>
+                    </li>
+                {% endfor %}
+                    
+            </ul>
+        </div>
+    </div>
+{% endblock content %}
+    

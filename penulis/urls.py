@@ -5,4 +5,6 @@ app_name = 'penulis'
 urlpatterns = [
     path('login/',loginView,name='login'),
     path('register/',register,name='register'),
+    path('logout/',logoutView,name='logout'),
+    path('',home,name='home'),
 ]
