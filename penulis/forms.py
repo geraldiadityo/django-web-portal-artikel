@@ -14,6 +14,8 @@ class AritikeForm(forms.ModelForm):
             'isi',
         ]
         widgets = {
+            'judul':TextInput,
+            'kategori':TextInput,
             'penulis':Select,
             'isi':Textarea
         }

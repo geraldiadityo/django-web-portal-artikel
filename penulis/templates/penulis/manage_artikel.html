@@ -1,0 +1,41 @@
+{% extends 'basepenulis.html' %}
+{% load static %}
+
+
+{% block title_app %}
+    Manage Artikel
+{% endblock title_app %}
+
+{% block javascripts %}
+    <script src="{% static 'js/artikel.js' %}"></script>
+{% endblock javascripts %}
+
+
+{% block content %}
+    <h1>Manage Artikel</h1>
+    <p>
+        <button type="button" class="btn btn-primary js-create-artikel" data-url="{% url 'penulis:create_artikel' %}">Tambah</button>
+    </p>
+    <table class="table" id="artikel-table">
+        <thead>
+            <tr>
+                <th>#</th>
+                <th>Judul</th>
+                <th>Kategori</th>
+                <th>Published</th>
+                <th>Action</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% include 'penulis/manage_artikel_list.html' %}
+        </tbody>
+    </table>
+    <div class="modal fade" id="modal-artikel">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                
+            </div>
+        </div>
+    </div>
+{% endblock content %}
+    

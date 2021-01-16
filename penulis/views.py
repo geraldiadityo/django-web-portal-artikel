@@ -1,10 +1,11 @@
 from django.shortcuts import render,redirect
-from django.http import HttpResponse
+from django.http import HttpResponse,JsonResponse
+from django.template.loader import render_to_string
 from django.urls import reverse_lazy
 from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.models import Group
-from .forms import (CreateUserForm,)
+from .forms import (CreateUserForm,AritikeForm)
 from .decorators import unauthenticated_user,allowed_user
 from artikel.models import Artikel
 # Create your views here.
@@ -60,4 +61,51 @@ def home(request):
         'kategorilist':kategorilist,
     }
     return render(request,'penulis/penulis_artikel_home.html',context)
+
+@login_required(login_url='penulis:login')
+@allowed_user(allowed_roles=['penulis'])
+def artikelList(request):
+    artikels = request.user.penulis.artikel_set.all().order_by('-published')
+    context = {
+        'artikel':artikels,
+    }
+    return render(request,'penulis/manage_artikel.html',context)
+
+@login_required(login_url='penulis:login')
+@allowed_user(allowed_roles=['penulis'])
+def artikel_save_form(request,form,template_name):
+    data = dict()
+    if request.method == 'POST':
+        if form.is_valid():
+            form.save()
+            data['form_is_valid'] = True
+            artikels = request.user.penulis.artikel_set.all().order_by('-published')
+            data['html_artikel_list'] = render_to_string('penulis/artikel_manage_list.html',{'artikel':artikels})
+        else:
+            data['form_is_valid'] = False
+    context = {
+        'form':form
+    }
+    data['html_form'] = render_to_string(template_name,context,request=request)
+    return JsonResponse(data)
+
+@login_required(login_url='penulis:login')
+@allowed_user(allowed_roles=['penulis'])
+def createArtikel(request):
+    if request.method == 'POST':
+        form = AritikeForm(request.POST)
+    else:
+        penulis = request.user.penulis
+        form = AritikeForm(initial={'penulis':penulis})
+    return artikel_save_form(request,form,'penulis/partartikelcreate.html')
+
+@login_required(login_url='penulis:login')
+@allowed_user(allowed_roles=['penulis'])
+def updateArtikel(request,pk):
+    artikel = request.user.penulis.artikel_set.get(id=pk)
+    if request.method == 'POST':
+        form = AritikeForm(request.POST,instance=artikel)
+    else:
+        form = AritikeForm(instance=artikel)
+    return artikel_save_form(request,form,'penulis/partartikelupdate.html')
 
