@@ -16,15 +16,13 @@ class AritikeForm(forms.ModelForm):
         widgets = {
             'judul':TextInput,
             'kategori':TextInput,
-            'penulis':Select,
+            'penulis':Select(
+                attrs={
+                    'disabled':'true',
+                }
+            ),
             'isi':Textarea
         }
-    def __init__(self, *args, **kwargs):
-        super(AritikeForm, self).__init__(*args, **kwargs)
-        for name in self.fields.keys():
-            self.fields[name].widgets.attrs.update({
-                'class':'form-control',
-            })
 
 class CreateUserForm(UserCreationForm):
     class Meta:

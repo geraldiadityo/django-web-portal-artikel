@@ -109,3 +109,20 @@ def updateArtikel(request,pk):
         form = AritikeForm(instance=artikel)
     return artikel_save_form(request,form,'penulis/partartikelupdate.html')
 
+@login_required(login_url='penulis:login')
+@allowed_user(allowed_roles=['penulis'])
+def deleteArtikel(request,pk):
+    artikel = request.user.penulis.artikel_set.get(id=pk)
+    data = dict()
+    if request.method == 'POST':
+        artikel.delete()
+        data['form_is_valid'] = True
+        artikels = request.user.penulis.artikel_set.all().order_by('-published')
+        data['html_artikel_list'] = render_to_string('penulis/manage_artikel_list.html',{'artikel':artikels},request=request)
+    else:
+        context = {
+            'artikel':artikel,
+        }
+        data['html_form'] = render_to_string('penulis/partartikeldelete.html',context,request=request)
+    return JsonResponse(data)
+

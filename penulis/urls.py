@@ -4,7 +4,9 @@ app_name = 'penulis'
 
 urlpatterns = [
     re_path(r'^update/(?P<pk>\d+)/$',updateArtikel,name='update_artikel'),
+    re_path(r'^delete/(?P<pk>\d+)/$',deleteArtikel,name='delete_artikel'),
     path('create/',createArtikel,name='create_artikel'),
+    path('manage/',artikelList,name='manage'),
     path('login/',loginView,name='login'),
     path('register/',register,name='register'),
     path('logout/',logoutView,name='logout'),
