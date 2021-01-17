@@ -9,8 +9,13 @@
         {% block title_app %}
             
         {% endblock title_app %}
-            
+        
     </title>
+    {% include 'scripts.html' %}
+    
+    {% block javascripts %}
+        
+    {% endblock javascripts %}
     <link rel="stylesheet" href="{% static 'vendor/bs/css/bootstrap.css' %}">
 </head>
 <body>
@@ -22,11 +27,6 @@
         {% endblock content %}
             
     </div>
-    {% include 'scripts.html' %}
-    
-    {% block javascripts %}
-        
-    {% endblock javascripts %}
         
 </body>
 </html>

@@ -1,4 +1,4 @@
-$(document).ready(function(){
+$(function(){
     var loadForm = function(){
         var btn = $(this);
         $.ajax({
@@ -19,12 +19,12 @@ $(document).ready(function(){
         $.ajax({
             url:form.attr("action"),
             data:form.serialize(),
-            type:'POST',
+            type:form.attr("method"),
             dataType:'JSON',
             success:function(data){
                 if (data.form_is_valid){
                     alert("data succes sender");
-                    $('#artikel-table tbody').html(data.html_artiek_list);
+                    $('#artikel-table tbody').html(data.html_artikel_list);
                     $('#modal-artikel').modal('hide');
                 }
                 else{
@@ -36,9 +36,9 @@ $(document).ready(function(){
     };
 
     $('.js-create-artikel').click(loadForm);
-    $('#modal-artikel').on('click','.js-artikel-create-form',saveForm);
+    //$('#modal-artikel .modal-content').on('submit','.js-artikel-create-form',saveForm);
     $('#artikel-table').on('click','.js-update-artikel',loadForm);
-    $('#modal-artikel').on('click','.js-artikel-update-form',saveForm);
+    //$('#modal-artikel').on('submit','.js-artikel-update-form',saveForm);
     $('#artikel-table').on('click','.js-delete-artikel',loadForm);
-    $('#modal-artikel').on('clikc','.js-artikel-delete-form',saveForm);
+    //$('#modal-artikel').on('submit','.js-artikel-delete-form',saveForm);
 });
