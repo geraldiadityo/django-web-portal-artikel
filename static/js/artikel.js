@@ -36,9 +36,9 @@ $(function(){
     };
 
     $('.js-create-artikel').click(loadForm);
-    //$('#modal-artikel .modal-content').on('submit','.js-artikel-create-form',saveForm);
+    $('#modal-artikel .modal-content').on('submit','.js-artikel-create-form',saveForm);
     $('#artikel-table').on('click','.js-update-artikel',loadForm);
-    //$('#modal-artikel').on('submit','.js-artikel-update-form',saveForm);
+    $('#modal-artikel').on('submit','.js-artikel-update-form',saveForm);
     $('#artikel-table').on('click','.js-delete-artikel',loadForm);
-    //$('#modal-artikel').on('submit','.js-artikel-delete-form',saveForm);
+    $('#modal-artikel').on('submit','.js-artikel-delete-form',saveForm);
 });

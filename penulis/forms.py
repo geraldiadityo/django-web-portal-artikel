@@ -1,5 +1,5 @@
 from django import forms
-from django.forms import Select,Textarea,TextInput,PasswordInput
+from django.forms import Select,Textarea,TextInput,PasswordInput,HiddenInput
 from django.contrib.auth.forms import UserCreationForm
 from django.contrib.auth.models import User
 from artikel.models import Artikel
@@ -15,10 +15,10 @@ class AritikeForm(forms.ModelForm):
         ]
         widgets = {
             'judul':TextInput,
-            'kategori':TextInput,
-            'penulis':Select(
+            'kategori':Select,
+            'penulis':HiddenInput(
                 attrs={
-                    'disabled':'true',
+                    'readonly':'true',
                 }
             ),
             'isi':Textarea

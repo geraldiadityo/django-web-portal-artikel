@@ -81,7 +81,7 @@ def artikel_save_form(request,form,template_name):
             form.save()
             data['form_is_valid'] = True
             artikels = request.user.penulis.artikel_set.all().order_by('-published')
-            data['html_artikel_list'] = render_to_string('penulis/artikel_manage_list.html',{'artikel':artikels})
+            data['html_artikel_list'] = render_to_string('penulis/manage_artikel_list.html',{'artikel':artikels})
         else:
             data['form_is_valid'] = False
     context = {
@@ -93,10 +93,10 @@ def artikel_save_form(request,form,template_name):
 @login_required(login_url='penulis:login')
 @allowed_user(allowed_roles=['penulis'])
 def createArtikel(request):
+    penulis = request.user.penulis
     if request.method == 'POST':
         form = AritikeForm(request.POST)
     else:
-        penulis = request.user.penulis
         form = AritikeForm(initial={'penulis':penulis})
     return artikel_save_form(request,form,'penulis/partartikelcreate.html')
 
