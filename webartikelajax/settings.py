@@ -39,7 +39,7 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'widget_tweaks',
     'artikel',
-    'penulis',
+    'penulis.apps.PenulisConfig',
     
 ]
 
