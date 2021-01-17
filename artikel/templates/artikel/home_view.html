@@ -1,0 +1,28 @@
+{% extends 'base.html' %}
+
+
+{% block title_app %}
+    {{page_title}}
+{% endblock title_app %}
+
+
+{% block content %}
+    <div class="row">
+        
+        {% for kategori in dataKategori %}
+            <div class="col-md-4">
+                <div class="card" style="width: 18rem;">
+                    <div class="card-body">
+                        <h5 class="card-title"><a href="{% url 'artikel:kategori-list' kategori.kategori 1 %}">{{kategori.kategori}}</a></h5>
+                        <h6 class="card-subtitle mb-2 text-dark">{{kategori.judul}}</h6>
+                        <h6 class="card-subtitle mb-2 text-muted">{{kategori.published|date}}</h6>
+                        <p class="card-text">{{kategori.isi|truncatewords:5}}</p>
+                        <a href="{% url 'artikel:detail' kategori.slug %}" class="card-link">Selengkapnya</a>
+                    </div>
+                </div>
+            </div>
+        {% endfor %}
+            
+    </div>
+{% endblock content %}
+    

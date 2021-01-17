@@ -6,6 +6,7 @@
         <td>{{dataartikel.kategori}}</td>
         <td>{{dataartikel.published|date}}</td>
         <td>
+            <a class="btn btn-sm btn-outline-info" href="{% url 'penulis:detail_artikel' dataartikel.slug %}">View</a>
             <button type="button" class="btn btn-sm btn-warning js-update-artikel" data-url="{% url 'penulis:update_artikel' dataartikel.id %}">Edit</button> 
             <button type="button" class="btn btn-sm btn-danger js-delete-artikel" data-url="{% url 'penulis:delete_artikel' dataartikel.id %}">Delete</button>
         </td>

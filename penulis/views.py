@@ -1,4 +1,5 @@
 from django.shortcuts import render,redirect
+from django.views.generic import DetailView
 from django.http import HttpResponse,JsonResponse
 from django.template.loader import render_to_string
 from django.urls import reverse_lazy
@@ -125,4 +126,14 @@ def deleteArtikel(request,pk):
         }
         data['html_form'] = render_to_string('penulis/partartikeldelete.html',context,request=request)
     return JsonResponse(data)
+
+@login_required(login_url='penulis:login')
+@allowed_user(allowed_roles=['penulis'])
+def detailArtikel(request,slug):
+    artikel = request.user.penulis.artikel_set.get(slug=slug)
+    context = {
+        'page_title':'Detail Artikel',
+        'artikel':artikel,
+    }
+    return render(request,'penulis/detail_artikel.html',context)
 

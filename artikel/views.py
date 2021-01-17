@@ -1,8 +1,30 @@
 from django.shortcuts import render
-from django.views.generic import ListView,DetailView
+from django.views.generic import ListView,DetailView,TemplateView
 # Create your views here.
 
 from .models import Artikel
+
+class ArtikelPerkategori():
+    model = Artikel
+    
+    def get_last_artikel_each_kategori(self):
+        kategoriList = self.model.objects.values_list('kategori',flat=True).distinct()
+        queryset = []
+        for kategori in kategoriList:
+            artikel = self.model.objects.filter(kategori=kategori).latest('published')
+            queryset.append(artikel)
+        return queryset
+
+class BlogHomeView(TemplateView,ArtikelPerkategori):
+    template_name = 'artikel/home_view.html'
+
+    def get_context_data(self):
+        data = self.get_last_artikel_each_kategori()
+        context = {
+            'page_title':'Wellcome',
+            'dataKategori':data,
+        }
+        return context
 
 class ArtikelListView(ListView):
     model = Artikel
