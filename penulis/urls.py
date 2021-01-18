@@ -3,6 +3,7 @@ from .views import *
 app_name = 'penulis'
 
 urlpatterns = [
+    path('profile_setting/',profileSetting,name='profile_setting'),
     re_path(r'^update/(?P<pk>\d+)/$',updateArtikel,name='update_artikel'),
     re_path(r'^delete/(?P<pk>\d+)/$',deleteArtikel,name='delete_artikel'),
     re_path(r'detail-artikel/(?P<slug>[\w-]+)/$',detailArtikel,name='detail_artikel'),

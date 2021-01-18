@@ -3,7 +3,7 @@ from django.forms import Select,Textarea,TextInput,PasswordInput,HiddenInput
 from django.contrib.auth.forms import UserCreationForm
 from django.contrib.auth.models import User
 from artikel.models import Artikel
-
+from .models import Penulis
 class AritikeForm(forms.ModelForm):
     class Meta:
         model = Artikel
@@ -37,4 +37,8 @@ class CreateUserForm(UserCreationForm):
             'email':'Your Email',
         }
         
-
+class PenulisForm(forms.ModelForm):
+    class Meta:
+        model = Penulis
+        fields = '__all__'
+        exclude = ['user']

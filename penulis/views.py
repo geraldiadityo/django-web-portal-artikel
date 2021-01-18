@@ -6,7 +6,7 @@ from django.urls import reverse_lazy
 from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.models import Group
-from .forms import (CreateUserForm,AritikeForm)
+from .forms import (CreateUserForm,AritikeForm, PenulisForm)
 from .decorators import unauthenticated_user,allowed_user
 from artikel.models import Artikel
 # Create your views here.
@@ -137,3 +137,20 @@ def detailArtikel(request,slug):
     }
     return render(request,'penulis/detail_artikel.html',context)
 
+@login_required(login_url='penulis:login')
+@allowed_user(allowed_roles=['penulis'])
+def profileSetting(request):
+    penulis = request.user.penulis
+    form = PenulisForm(instance=penulis)
+    if request.method == 'POST':
+        form = PenulisForm(request.POST, request.FILES, instance=penulis)
+        if form.is_valid():
+            form.save()
+            return HttpResponse(
+                '<script>alert("profile success updated");window.location="'+str(reverse_lazy('penulis:profile_setting'))+'";</script>'
+            )
+    context = {
+        'form':form,
+        'page_title':'Profile Setting',
+    }
+    return render(request,'penulis/profile_setting.html',context)
