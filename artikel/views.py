@@ -2,7 +2,7 @@ from django.shortcuts import render
 from django.views.generic import ListView,DetailView,TemplateView
 # Create your views here.
 
-from .models import Artikel
+from .models import Artikel,Penulis
 
 class ArtikelPerkategori():
     model = Artikel
@@ -78,3 +78,13 @@ class ArtikelDetailView(DetailView):
         self.kwargs.update(data_context)
         kwargs = self.kwargs
         return super().get_context_data(*args, **kwargs)
+
+def get_profile_penulis(request,pk):
+    penulis = Penulis.objects.get(id=pk)
+    dataartikel = Artikel.objects.filter(penulis=penulis).order_by('-published')
+    context = {
+        'page_title':'Profile Penulis',
+        'penulis':penulis,
+        'dataartikels':dataartikel,
+    }
+    return render(request,'artikel/penulis_profile.html',context)

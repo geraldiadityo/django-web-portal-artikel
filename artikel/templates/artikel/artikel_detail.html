@@ -12,7 +12,7 @@
         <div class="col-md-8">
             <h1>{{artikel.judul}}</h1>
             <h5>Kategori : {{artikel.kategori}} | {{artikel.published | date}}</h5>
-            <h5>Penulis : {{artikel.penulis}}</h5>
+            <h5>Penulis : <a href="{% url 'artikel:profile_penulis' artikel.penulis.id %}">{{artikel.penulis}}</a></h5>
             <p>{{artikel.isi}}</p>
         </div>
         <div class="col-sm">

@@ -1,0 +1,43 @@
+{% extends 'base.html' %}
+
+
+{% block title_app %}
+    {{page_title}}
+{% endblock title_app %}
+
+
+{% block content %}
+    <style>
+        .profile-pic{
+            max-width: 200px;
+            max-height: 200px;
+            margin: 0 auto;
+            border-radius: 50%;
+        }
+    </style>
+    <div class="row">
+        <div class="col-md-3">
+            <div class="card card-body">
+                <h3>Profil Penulis</h3>
+                <hr>
+                <img class="profile-pic" src="{{penulis.profile_pic.url}}" alt="profile pic">
+            </div>
+        </div>
+            <div class="col-md-9">
+                <div class="card card-body">
+                    <h3>Nama : {{penulis.nama}}</h3>
+                    <h4>Email : {{penulis.email}}</h4>
+                    <h5>Daftar Artikel Penulis :</h5>
+                    <ul class="list-group list-group-flush">
+                        
+                        {% for artikel in dataartikels %}
+                            <li class="list-group-item">
+                                <a href="{% url 'artikel:detail' artikel.slug %}">{{artikel.judul}} | {{artikel.published|date}}</a>
+                            </li>
+                        {% endfor %}
+                            
+                    </ul>
+                </div>
+            </div>
+    </div>
+{% endblock content %}

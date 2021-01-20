@@ -57,7 +57,7 @@
             {% for dataartikel in artikel %}
                 <h3><a class="text-dark" href="{% url 'artikel:detail' dataartikel.slug %}">{{dataartikel.judul}}</a></h3>
                 <p>kategori : {{dataartikel.kategori}} | {{dataartikel.published|date}}</p>
-                <p>Penulis : {{dataartikel.penulis}}</p>
+                <p>Penulis : <a href="{% url 'artikel:profile_penulis' dataartikel.penulis.id %}">{{dataartikel.penulis}}</a></p>
                 <p>{{dataartikel.isi|truncatewords:20}} <a href="{% url 'artikel:detail' dataartikel.slug %}">Selengkapnya</a></p>
                 <hr>
             {% empty %}
